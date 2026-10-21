@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>El jardín de Johana · 28</title>
+<meta name="description" content="Una felicitación de cumpleaños interactiva hecha de flores para Johana, que cumple 28." />
+<meta name="theme-color" content="#120a1f" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌸</text></svg>" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body data-scene="intro">
+
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<header class="topbar">
+  <div class="brand" aria-hidden="true">J<i>·</i>28</div>
+  <nav class="dots" id="dots" aria-label="Capítulos"></nav>
+  <div class="tools">
+    <button class="icon-btn" id="btn-sound" aria-pressed="false" title="Música y sonidos">
+      <span class="ico">♪</span>
+    </button>
+    <button class="icon-btn" id="btn-full" title="Pantalla completa">
+      <span class="ico">⤢</span>
+    </button>
+  </div>
+</header>
+
+<main id="stage">
+
+  <!-- ░░ 1 · PORTADA ░░ -->
+  <section class="scene scene--center is-active" id="scene-intro" data-scene="intro">
+    <div class="sky" aria-hidden="true">
+      <div class="moon"></div>
+      <div class="stars"></div>
+      <div class="glow"></div>
+    </div>
+    <div class="intro-card">
+      <p class="kicker">Hoy el jardín florece para</p>
+      <h1 class="name">Johana</h1>
+      <div class="age" aria-label="28 años">
+        <span>2</span><span>8</span>
+      </div>
+      <p class="lede">
+        Veintiocho flores esperan bajo la tierra. Ninguna se abre sola:
+        todas necesitan tus manos.
+      </p>
+      <button class="btn btn--big" id="btn-start">
+        <span>Abrir el jardín</span>
+      </button>
+      <p class="hint">se ve mejor con sonido ✶ funciona con el dedo o el ratón</p>
+    </div>
+  </section>
+
+  <!-- ░░ 2 · EL JARDÍN ░░ -->
+  <section class="scene" id="scene-garden" data-scene="garden">
+    <canvas id="garden" aria-label="Jardín interactivo: mantén presionado para hacer crecer una flor"></canvas>
+    <div class="hud hud--top">
+      <div class="counter">
+        <svg viewBox="0 0 36 36" class="ring" aria-hidden="true">
+          <circle class="ring-bg" cx="18" cy="18" r="15.5"></circle>
+          <circle class="ring-fg" id="ring-fg" cx="18" cy="18" r="15.5"></circle>
+        </svg>
+        <div class="counter-txt"><b id="count">0</b><small>/28 flores</small></div>
+      </div>
+      <p class="tip" id="garden-tip">Mantén presionado sobre la tierra ✦ suéltalo para florecer</p>
+    </div>
+    <div class="hud hud--bottom">
+      <div class="whisper" id="whisper" aria-live="polite"></div>
+      <button class="btn btn--ghost is-hidden" id="btn-to-cake">La tarta te espera →</button>
+    </div>
+  </section>
+
+  <!-- ░░ 3 · LA TARTA ░░ -->
+  <section class="scene scene--center" id="scene-cake" data-scene="cake">
+    <div class="cake-wrap">
+      <h2 class="chapter">Veintiocho velas</h2>
+      <p class="chapter-sub" id="cake-sub">Sopla al micrófono, o apágalas con el dedo. Tú eliges la magia.</p>
+      <div class="cake" id="cake">
+        <div class="candles" id="candles"></div>
+        <div class="tier tier--1"><span class="drip"></span></div>
+        <div class="tier tier--2"><span class="drip"></span></div>
+        <div class="tier tier--3"><span class="drip"></span></div>
+        <div class="plate"></div>
+      </div>
+      <div class="cake-tools">
+        <button class="btn btn--ghost" id="btn-mic">🎤 Soplar de verdad</button>
+        <button class="btn btn--ghost" id="btn-blow">💨 Soplar todas</button>
+      </div>
+      <div class="wish is-hidden" id="wish">
+        <p>Pide el deseo.</p>
+        <button class="btn" id="btn-to-game">Ya lo pedí →</button>
+      </div>
+      <div class="mic-meter is-hidden" id="mic-meter"><i></i></div>
+    </div>
+  </section>
+
+  <!-- ░░ 4 · MINIJUEGO ░░ -->
+  <section class="scene" id="scene-game" data-scene="game">
+    <canvas id="game" aria-label="Minijuego: atrapa los pétalos que caen"></canvas>
+    <div class="hud hud--top">
+      <div class="score">
+        <b id="score">0</b><small>/28 pétalos</small>
+        <div class="bar"><i id="score-bar"></i></div>
+      </div>
+      <p class="tip">Mueve la cesta ✦ dedo, ratón o flechas ← →</p>
+    </div>
+    <div class="hud hud--bottom">
+      <div class="whisper" id="game-whisper" aria-live="polite"></div>
+      <button class="btn btn--ghost is-hidden" id="btn-to-final">El ramo final →</button>
+    </div>
+  </section>
+
+  <!-- ░░ 5 · FINAL ░░ -->
+  <section class="scene" id="scene-final" data-scene="final">
+    <canvas id="bouquet" aria-label="Ramo final: toca una flor para leer su deseo"></canvas>
+
+    <div class="hud hud--top">
+      <p class="tip" id="final-tip">Tu ramo ✦ toca cualquier flor: todas guardan un deseo</p>
+    </div>
+
+    <div class="hud hud--bottom">
+      <div class="whisper" id="final-whisper" aria-live="polite"></div>
+      <div class="final-tools">
+        <button class="btn" id="btn-letter">Leer la carta</button>
+        <button class="btn btn--ghost" id="btn-wishes">Los 28 deseos</button>
+        <button class="btn btn--ghost" id="btn-replay">Sembrar otra vez</button>
+      </div>
+    </div>
+
+    <div class="sheet is-hidden" id="sheet">
+      <div class="letter" id="letter">
+        <button class="deck-close" id="sheet-close" title="Cerrar">✕</button>
+        <h2>Feliz cumpleaños, <em>Johana</em></h2>
+        <p class="letter-body" id="letter-body"></p>
+        <p class="letter-sign">— con cariño, hoy y los 364 días restantes</p>
+      </div>
+    </div>
+
+    <div class="deck is-hidden" id="deck">
+      <button class="deck-close" id="deck-close" title="Cerrar">✕</button>
+      <div class="deck-card" id="deck-card">
+        <span class="deck-num" id="deck-num">01</span>
+        <p id="deck-text"></p>
+      </div>
+      <div class="deck-nav">
+        <button class="icon-btn" id="deck-prev" title="Anterior">‹</button>
+        <span class="deck-of" id="deck-of">1 / 28</span>
+        <button class="icon-btn" id="deck-next" title="Siguiente">›</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="egg" id="egg" aria-hidden="true"></div>
+<p class="credit">hecho a mano, con pétalos de código ✦ escribe <b>johana</b> en cualquier momento</p>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
