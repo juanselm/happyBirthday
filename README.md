@@ -5,6 +5,9 @@ Hay que sembrarlas una a una —doce, una por cada mes que viene— y cada una d
 
 Sin frameworks, sin build, sin dependencias: **HTML + CSS + JavaScript** puro, listo para GitHub Pages.
 
+Publicado en <https://juanselm.github.io/happyBirthday/Morita>. La raíz del repositorio conserva
+la versión original para Johana, en <https://juanselm.github.io/happyBirthday/>.
+
 ---
 
 ## Las cinco escenas
@@ -29,7 +32,7 @@ y un huevo de pascua — escribe `morita` en cualquier momento.
 
 ```bash
 python -m http.server 8000
-# luego abre http://localhost:8000
+# luego abre http://localhost:8000/Morita/
 ```
 
 **En GitHub Pages:** en el repositorio, `Settings → Pages → Source: GitHub Actions`.
@@ -42,7 +45,7 @@ Cada push a `main` se publica solo mediante [`.github/workflows/pages.yml`](.git
 
 ## Personalizarlo
 
-Casi todo lo editable vive en [`js/messages.js`](js/messages.js):
+Casi todo lo editable vive en [`Morita/js/messages.js`](Morita/js/messages.js):
 
 ```js
 export const WISHES = [ /* los 12 deseos, uno por flor */ ];
@@ -54,28 +57,29 @@ export const NAME = 'Morita';
 Cambiar `NAME` ajusta el título de la pestaña, la portada, la carta y el huevo de pascua
 (el saludo de `LETTER` se escribe a mano). El número de flores, velas y pétalos sale de `COUNT`,
 es decir, de cuántos deseos haya en `WISHES`. Si cambias esa cantidad, revisa también la carta
-y las columnas de `.candles` en `css/styles.css`.
+y las columnas de `.candles` en `Morita/css/styles.css`.
 
-Los colores de las flores están en `PALETTES` ([`js/flower.js`](js/flower.js)) y la paleta general
-en las variables CSS de `:root` ([`css/styles.css`](css/styles.css)).
+Los colores de las flores están en `PALETTES` ([`Morita/js/flower.js`](Morita/js/flower.js)) y la paleta general
+en las variables CSS de `:root` ([`Morita/css/styles.css`](Morita/css/styles.css)).
 
 ---
 
 ## Cómo está hecho
 
 ```
-index.html          las cinco escenas
-css/styles.css      paleta nocturna, HUD, tarta, tarjetas
-js/
-  main.js           director de escena: navegación, HUD, atajos
-  flower.js         flores procedurales (tallo, hojas, pétalos por especie)
-  garden.js         escena 2: sembrar, viento, mariposas, luciérnagas
-  cake.js           escena 3: velas + micrófono
-  game.js           escena 4: minijuego de pétalos
-  final.js          escena 5: el ramo
-  fx.js             capa global de pétalos, confeti y destellos
-  audio.js          sintetizador WebAudio (ambiente, campanas, melodía)
-  messages.js       los 12 deseos y la carta
+Morita/
+  index.html        las cinco escenas
+  css/styles.css    paleta nocturna, HUD, tarta, tarjetas
+  js/
+    main.js           director de escena: navegación, HUD, atajos
+    flower.js         flores procedurales (tallo, hojas, pétalos por especie)
+    garden.js         escena 2: sembrar, viento, mariposas, luciérnagas
+    cake.js           escena 3: velas + micrófono
+    game.js           escena 4: minijuego de pétalos
+    final.js          escena 5: el ramo
+    fx.js             capa global de pétalos, confeti y destellos
+    audio.js          sintetizador WebAudio (ambiente, campanas, melodía)
+    messages.js       los 12 deseos y la carta
 ```
 
 Las flores se dibujan en canvas 2D a partir de una semilla: la misma semilla da siempre la misma flor,

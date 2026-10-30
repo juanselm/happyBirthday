@@ -2,7 +2,7 @@
 // Director de escena: une jardín, tarta, juego y ramo
 // ───────────────────────────────────────────────
 
-import { WISHES, LETTER, NAME, COUNT } from './messages.js';
+import { WISHES, LETTER, NAME, AGE } from './messages.js';
 import { fx } from './fx.js';
 import { sound } from './audio.js';
 import { Garden, TARGET } from './garden.js';
@@ -72,10 +72,7 @@ function onLeave(name) {
   if (name === 'garden') app.garden?.stop();
   if (name === 'game') app.game?.stop();
   if (name === 'final') app.bouquet?.stop();
-  if (name === 'cake') {
-    app.cake?.stopMic();
-    $('#btn-mic').textContent = '🎤 Soplar de verdad';
-  }
+  if (name === 'cake') app.cake?.stopMic();
 }
 
 function onEnter(name) {
@@ -118,11 +115,10 @@ function whisper(el, text, hold = 5200) {
     el.appendChild(s);
   });
   clearTimeout(el._t);
-  clearTimeout(el._fade);
   el._t = setTimeout(() => {
     el.style.transition = 'opacity .8s';
     el.style.opacity = '0';
-    el._fade = setTimeout(() => { el.innerHTML = ''; el.style.opacity = '1'; }, 800);
+    setTimeout(() => { el.innerHTML = ''; el.style.opacity = '1'; }, 800);
   }, hold);
   el.style.opacity = '1';
 }
@@ -151,8 +147,8 @@ function setupGarden() {
     },
     onComplete() {
       tip.classList.remove('is-dim');
-      tip.textContent = `${TARGET} flores, una por cada mes que te espera`;
-      whisper(whisperEl, '¡Jardín completo! Y ahora viene lo mejor: la tarta.', 9000);
+      tip.textContent = `${TARGET} flores para tus ${AGE} años`;
+      whisper(whisperEl, 'El jardín está completo. Y aún queda tarta.', 9000);
       next.classList.remove('is-hidden');
       unlock(2);
     }
@@ -172,7 +168,7 @@ function setupCake() {
     onAllOut() {
       $('#wish').classList.remove('is-hidden');
       $('.cake-tools').classList.add('is-hidden');
-      sub.textContent = '¡Todas apagadas de un soplo! (O casi, no se lo diremos a nadie.)';
+      sub.textContent = 'Veintiocho apagadas de un soplo (o casi).';
       sound.birthday();
       unlock(3);
     }
@@ -217,7 +213,7 @@ function setupGame() {
       if (combo === 12) whisper(whisperEl, 'Imparable.', 2600);
     },
     onWin() {
-      whisper(whisperEl, '¡Lo lograste! Ya hay pétalos para un ramo entero.', 9000);
+      whisper(whisperEl, 'Suficientes pétalos para un ramo entero.', 9000);
       next.classList.remove('is-hidden');
       unlock(4);
     }
@@ -361,12 +357,12 @@ function setupChrome() {
     }
   });
 
-  // easter egg: escribe el nombre
+  // easter egg: escribe "johana"
   let buf = '';
   addEventListener('keydown', (e) => {
     if (e.key.length !== 1) return;
     buf = (buf + e.key.toLowerCase()).slice(-12);
-    if (buf.endsWith(NAME.toLowerCase())) {
+    if (buf.endsWith('johana')) {
       buf = '';
       const egg = $('#egg');
       egg.textContent = '💐';
@@ -394,11 +390,7 @@ function setupChrome() {
 }
 
 /* ── arranque ────────────────────────────────── */
-document.title = `El jardín de ${NAME}`;
-document.querySelectorAll('[data-name]').forEach(el => { el.textContent = NAME; });
-document.querySelectorAll('[data-count]').forEach(el => { el.textContent = COUNT; });
-$('#brand-initial').textContent = NAME[0];
-$('#egg-word').textContent = NAME.toLowerCase();
+document.title = `El jardín de ${NAME} · ${AGE}`;
 buildDots();
 setupGarden();
 setupCake();

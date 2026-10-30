@@ -1,13 +1,12 @@
 // ───────────────────────────────────────────────
-// Escena 2 · El jardín: siembra una flor por cada mes
+// Escena 2 · El jardín: siembra 28 flores
 // ───────────────────────────────────────────────
 
 import { Flower, hexA } from './flower.js';
 import { fx } from './fx.js';
 import { sound } from './audio.js';
-import { COUNT } from './messages.js';
 
-const TARGET = COUNT;
+const TARGET = 28;
 
 export class Garden {
   constructor(canvas, { onPlant, onPoke, onComplete } = {}) {
@@ -127,7 +126,7 @@ export class Garden {
   }
 
   _startSprout(x) {
-    if (this.sprout || this.flowers.length >= TARGET) return;
+    if (this.sprout) return;
     const seed = this.seedBase + this.flowers.length * 7919 + Math.floor(Math.random() * 999);
     const f = new Flower({
       x: Math.max(18, Math.min(this.w - 18, x)),
@@ -211,12 +210,9 @@ export class Garden {
     if (this.running) return;
     this.running = true;
     this.last = performance.now();
-    this.raf = requestAnimationFrame(this._loop);
+    requestAnimationFrame(this._loop);
   }
-  stop() {
-    this.running = false;
-    cancelAnimationFrame(this.raf);
-  }
+  stop() { this.running = false; }
 
   reset() {
     this.flowers = [];
@@ -237,7 +233,7 @@ export class Garden {
     this.t += dt;
     this._update(dt);
     this._draw();
-    this.raf = requestAnimationFrame(this._loop);
+    requestAnimationFrame(this._loop);
   }
 
   _update(dt) {

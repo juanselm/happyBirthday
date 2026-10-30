@@ -1,5 +1,5 @@
 /* ───────────────────────────────────────────────
-   El jardín de Morita
+   El jardín de Johana · 28
    Paleta nocturna + pétalos cálidos
    ─────────────────────────────────────────────── */
 
@@ -189,11 +189,11 @@ body{
   -webkit-text-fill-color:transparent;
   filter:drop-shadow(0 10px 34px rgba(255,143,177,.3));
 }
-.tiles{
+.age{
   display:flex; justify-content:center; gap:clamp(6px,2vw,14px);
   margin:14px 0 20px;
 }
-.tiles span{
+.age span{
   display:grid; place-items:center;
   width:clamp(46px,13vw,68px); aspect-ratio:1;
   border-radius:18px;
@@ -205,7 +205,7 @@ body{
   box-shadow:var(--shadow);
   animation:tilt 6s ease-in-out infinite;
 }
-.tiles span:last-child{animation-delay:-3s}
+.age span:last-child{animation-delay:-3s}
 @keyframes tilt{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
 
 .lede{
@@ -373,20 +373,20 @@ body{
 }
 .cake.is-dark{filter:drop-shadow(0 26px 40px rgba(0,0,0,.55)) brightness(.62) saturate(.8) contrast(.95)}
 
-/* 12 velas = 2 filas de 6 sobre el piso superior */
+/* 28 velas = 2 filas de 14 sobre el piso superior */
 .candles{
   position:absolute; top:0; left:50%;
   translate:-50% 0;
-  width:34%;
+  width:52%;
   height:clamp(78px,24vw,104px);
   display:grid;
-  grid-template-columns:repeat(6,1fr);
+  grid-template-columns:repeat(14,1fr);
   align-content:end;
   justify-items:center; align-items:end;
   row-gap:clamp(14px,4vw,20px);
 }
 /* la fila de atrás, un poco más pequeña: da profundidad */
-.candle:nth-child(-n+6){
+.candle:nth-child(-n+14){
   transform:scale(.86);
   transform-origin:50% 100%;
   opacity:.9;
@@ -610,6 +610,6 @@ body[data-scene="game"] .credit{opacity:0}
   .credit{display:none}
 }
 @media (prefers-reduced-motion:reduce){
-  .moon,.stars,.tiles span,.btn--big::after,#btn-sound .ico{animation:none}
+  .moon,.stars,.age span,.btn--big::after,#btn-sound .ico{animation:none}
   .scene{transition-duration:.25s}
 }

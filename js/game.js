@@ -1,12 +1,11 @@
 // ───────────────────────────────────────────────
-// Escena 4 · Minijuego: atrapa los pétalos
+// Escena 4 · Minijuego: atrapa 28 pétalos
 // ───────────────────────────────────────────────
 
 import { fx, PETAL_COLORS } from './fx.js';
 import { sound } from './audio.js';
-import { COUNT } from './messages.js';
 
-const GOAL = COUNT;
+const GOAL = 28;
 
 export class Game {
   constructor(canvas, { onScore, onWin } = {}) {
@@ -69,12 +68,9 @@ export class Game {
     if (this.running) return;
     this.running = true;
     this.last = performance.now();
-    this.raf = requestAnimationFrame(this._loop);
+    requestAnimationFrame(this._loop);
   }
-  stop() {
-    this.running = false;
-    cancelAnimationFrame(this.raf);
-  }
+  stop() { this.running = false; }
 
   reset() {
     this.items = [];
@@ -161,7 +157,7 @@ export class Game {
     }
 
     this._draw();
-    this.raf = requestAnimationFrame(this._loop);
+    requestAnimationFrame(this._loop);
   }
 
   _win() {

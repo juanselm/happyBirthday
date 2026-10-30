@@ -6,7 +6,6 @@
 import { Flower } from './flower.js';
 import { fx } from './fx.js';
 import { sound } from './audio.js';
-import { COUNT } from './messages.js';
 
 export class Bouquet {
   constructor(canvas, { onPick } = {}) {
@@ -53,7 +52,7 @@ export class Bouquet {
 
   /* ── construir el ramo a partir de las semillas sembradas ── */
   setFlowers(seedList) {
-    this.seeds = seedList.slice(0, COUNT);
+    this.seeds = seedList.slice(0, 28);
     this.flowers = this.seeds.map((s, i) => new Flower({
       x: 0, groundY: 0, seed: s.seed, maxH: this.len, index: i, instant: true
     }));
@@ -116,12 +115,9 @@ export class Bouquet {
     if (this.running) return;
     this.running = true;
     this.last = performance.now();
-    this.raf = requestAnimationFrame(this._loop);
+    requestAnimationFrame(this._loop);
   }
-  stop() {
-    this.running = false;
-    cancelAnimationFrame(this.raf);
-  }
+  stop() { this.running = false; }
 
   _loop(now) {
     if (!this.running) return;
@@ -132,7 +128,7 @@ export class Bouquet {
     this.spread += (this.spreadTarget - this.spread) * Math.min(1, dt * 4);
     this.flowers.forEach(f => f.update(dt, false));
     this._draw();
-    this.raf = requestAnimationFrame(this._loop);
+    requestAnimationFrame(this._loop);
   }
 
   _draw() {
