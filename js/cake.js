@@ -1,10 +1,11 @@
 // ───────────────────────────────────────────────
-// Escena 3 · La tarta: 28 velas que se apagan
+// Escena 3 · La tarta: las velas se apagan
 // soplando al micrófono (o con el dedo).
 // ───────────────────────────────────────────────
 
 import { fx } from './fx.js';
 import { sound } from './audio.js';
+import { COUNT } from './messages.js';
 
 export class Cake {
   constructor({ cakeEl, candlesEl, subEl, meterEl, onAllOut }) {
@@ -13,7 +14,7 @@ export class Cake {
     this.sub = subEl;
     this.meter = meterEl;
     this.onAllOut = onAllOut || (() => { });
-    this.total = 28;
+    this.total = COUNT;
     this.pressing = false;
     this.mic = null;
     this.rafMic = 0;

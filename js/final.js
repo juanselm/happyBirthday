@@ -6,6 +6,7 @@
 import { Flower } from './flower.js';
 import { fx } from './fx.js';
 import { sound } from './audio.js';
+import { COUNT } from './messages.js';
 
 export class Bouquet {
   constructor(canvas, { onPick } = {}) {
@@ -52,7 +53,7 @@ export class Bouquet {
 
   /* ── construir el ramo a partir de las semillas sembradas ── */
   setFlowers(seedList) {
-    this.seeds = seedList.slice(0, 28);
+    this.seeds = seedList.slice(0, COUNT);
     this.flowers = this.seeds.map((s, i) => new Flower({
       x: 0, groundY: 0, seed: s.seed, maxH: this.len, index: i, instant: true
     }));

@@ -1,12 +1,13 @@
 // ───────────────────────────────────────────────
-// Escena 2 · El jardín: siembra 28 flores
+// Escena 2 · El jardín: siembra una flor por cada mes
 // ───────────────────────────────────────────────
 
 import { Flower, hexA } from './flower.js';
 import { fx } from './fx.js';
 import { sound } from './audio.js';
+import { COUNT } from './messages.js';
 
-const TARGET = 28;
+const TARGET = COUNT;
 
 export class Garden {
   constructor(canvas, { onPlant, onPoke, onComplete } = {}) {
