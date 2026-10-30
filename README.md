@@ -1,12 +1,11 @@
-# 🌸 El jardín de Morita
+# 🌸 Jardín de cumpleaños
 
 Una felicitación de cumpleaños interactiva: un jardín nocturno donde **las flores no se abren solas**.
 Hay que sembrarlas una a una —doce, una por cada mes que viene— y cada una devuelve un deseo.
 
 Sin frameworks, sin build, sin dependencias: **HTML + CSS + JavaScript** puro, listo para GitHub Pages.
 
-Publicado en <https://juanselm.github.io/happyBirthday/Morita>. La raíz del repositorio conserva
-la versión original para Johana, en <https://juanselm.github.io/happyBirthday/>.
+Cada felicitación vive en su propia carpeta. La raíz solo muestra un saludo y no enlaza a ninguna.
 
 ---
 
@@ -22,7 +21,7 @@ la versión original para Johana, en <https://juanselm.github.io/happyBirthday/>
 
 Extras: música y efectos generados en tiempo real con **WebAudio** (ni un solo archivo de audio),
 navegación por capítulos, pantalla completa, soporte táctil, `prefers-reduced-motion`,
-y un huevo de pascua — escribe `morita` en cualquier momento.
+y un huevo de pascua — escribe el nombre de la persona en cualquier momento.
 
 ---
 
@@ -32,7 +31,7 @@ y un huevo de pascua — escribe `morita` en cualquier momento.
 
 ```bash
 python -m http.server 8000
-# luego abre http://localhost:8000/Morita/
+# luego abre http://localhost:8000/<carpeta>/
 ```
 
 **En GitHub Pages:** en el repositorio, `Settings → Pages → Source: GitHub Actions`.
@@ -45,29 +44,29 @@ Cada push a `main` se publica solo mediante [`.github/workflows/pages.yml`](.git
 
 ## Personalizarlo
 
-Casi todo lo editable vive en [`Morita/js/messages.js`](Morita/js/messages.js):
+Casi todo lo editable vive en `<carpeta>/js/messages.js`:
 
 ```js
 export const WISHES = [ /* los 12 deseos, uno por flor */ ];
 export const COUNT = WISHES.length;
 export const LETTER = `la carta del final`;
-export const NAME = 'Morita';
+export const NAME = 'Nombre';
 ```
 
 Cambiar `NAME` ajusta el título de la pestaña, la portada, la carta y el huevo de pascua
 (el saludo de `LETTER` se escribe a mano). El número de flores, velas y pétalos sale de `COUNT`,
 es decir, de cuántos deseos haya en `WISHES`. Si cambias esa cantidad, revisa también la carta
-y las columnas de `.candles` en `Morita/css/styles.css`.
+y las columnas de `.candles` en `<carpeta>/css/styles.css`.
 
-Los colores de las flores están en `PALETTES` ([`Morita/js/flower.js`](Morita/js/flower.js)) y la paleta general
-en las variables CSS de `:root` ([`Morita/css/styles.css`](Morita/css/styles.css)).
+Los colores de las flores están en `PALETTES` (`<carpeta>/js/flower.js`) y la paleta general
+en las variables CSS de `:root` (`<carpeta>/css/styles.css`).
 
 ---
 
 ## Cómo está hecho
 
 ```
-Morita/
+<carpeta>/
   index.html        las cinco escenas
   css/styles.css    paleta nocturna, HUD, tarta, tarjetas
   js/
