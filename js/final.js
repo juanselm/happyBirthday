@@ -116,9 +116,12 @@ export class Bouquet {
     if (this.running) return;
     this.running = true;
     this.last = performance.now();
-    requestAnimationFrame(this._loop);
+    this.raf = requestAnimationFrame(this._loop);
   }
-  stop() { this.running = false; }
+  stop() {
+    this.running = false;
+    cancelAnimationFrame(this.raf);
+  }
 
   _loop(now) {
     if (!this.running) return;
@@ -129,7 +132,7 @@ export class Bouquet {
     this.spread += (this.spreadTarget - this.spread) * Math.min(1, dt * 4);
     this.flowers.forEach(f => f.update(dt, false));
     this._draw();
-    requestAnimationFrame(this._loop);
+    this.raf = requestAnimationFrame(this._loop);
   }
 
   _draw() {

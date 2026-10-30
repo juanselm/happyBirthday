@@ -69,9 +69,12 @@ export class Game {
     if (this.running) return;
     this.running = true;
     this.last = performance.now();
-    requestAnimationFrame(this._loop);
+    this.raf = requestAnimationFrame(this._loop);
   }
-  stop() { this.running = false; }
+  stop() {
+    this.running = false;
+    cancelAnimationFrame(this.raf);
+  }
 
   reset() {
     this.items = [];
@@ -158,7 +161,7 @@ export class Game {
     }
 
     this._draw();
-    requestAnimationFrame(this._loop);
+    this.raf = requestAnimationFrame(this._loop);
   }
 
   _win() {

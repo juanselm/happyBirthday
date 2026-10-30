@@ -127,7 +127,7 @@ export class Garden {
   }
 
   _startSprout(x) {
-    if (this.sprout) return;
+    if (this.sprout || this.flowers.length >= TARGET) return;
     const seed = this.seedBase + this.flowers.length * 7919 + Math.floor(Math.random() * 999);
     const f = new Flower({
       x: Math.max(18, Math.min(this.w - 18, x)),
@@ -211,9 +211,12 @@ export class Garden {
     if (this.running) return;
     this.running = true;
     this.last = performance.now();
-    requestAnimationFrame(this._loop);
+    this.raf = requestAnimationFrame(this._loop);
   }
-  stop() { this.running = false; }
+  stop() {
+    this.running = false;
+    cancelAnimationFrame(this.raf);
+  }
 
   reset() {
     this.flowers = [];
@@ -234,7 +237,7 @@ export class Garden {
     this.t += dt;
     this._update(dt);
     this._draw();
-    requestAnimationFrame(this._loop);
+    this.raf = requestAnimationFrame(this._loop);
   }
 
   _update(dt) {

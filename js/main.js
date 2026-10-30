@@ -72,7 +72,10 @@ function onLeave(name) {
   if (name === 'garden') app.garden?.stop();
   if (name === 'game') app.game?.stop();
   if (name === 'final') app.bouquet?.stop();
-  if (name === 'cake') app.cake?.stopMic();
+  if (name === 'cake') {
+    app.cake?.stopMic();
+    $('#btn-mic').textContent = '🎤 Soplar de verdad';
+  }
 }
 
 function onEnter(name) {
@@ -115,10 +118,11 @@ function whisper(el, text, hold = 5200) {
     el.appendChild(s);
   });
   clearTimeout(el._t);
+  clearTimeout(el._fade);
   el._t = setTimeout(() => {
     el.style.transition = 'opacity .8s';
     el.style.opacity = '0';
-    setTimeout(() => { el.innerHTML = ''; el.style.opacity = '1'; }, 800);
+    el._fade = setTimeout(() => { el.innerHTML = ''; el.style.opacity = '1'; }, 800);
   }, hold);
   el.style.opacity = '1';
 }
