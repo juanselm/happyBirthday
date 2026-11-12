@@ -13,7 +13,7 @@ import { rng } from './flower.js';
 
 const $ = (s) => document.querySelector(s);
 const SCENES = ['intro', 'garden', 'cake', 'game', 'final'];
-const LABELS = ['Portada', 'El jardín', 'La tarta', 'Los pétalos', 'El ramo'];
+const LABELS = ['Inicio', 'Nivel 1 · El jardín', 'Nivel 2 · La tarta', 'Nivel 3 · Los pétalos', 'Final · El ramo'];
 const RING = 2 * Math.PI * 15.5;
 
 const app = {
@@ -102,10 +102,21 @@ function onEnter(name) {
       setTimeout(() => fx.fireworks(innerWidth / 2, innerHeight * .35), 600);
       if (!app.letterShown) {
         app.letterShown = true;
+        achievement('Game clear ✦ ¡Feliz cumple!');
         setTimeout(openSheet, 2600);
       }
       break;
   }
+}
+
+/* ── logros estilo videojuego ────────────────── */
+function achievement(title) {
+  const box = $('#achv');
+  $('#achv-title').textContent = title;
+  box.classList.add('is-on');
+  sound.cheer();
+  clearTimeout(box._t);
+  box._t = setTimeout(() => box.classList.remove('is-on'), 3800);
 }
 
 /* ── susurros (texto animado palabra a palabra) ── */
@@ -152,7 +163,8 @@ function setupGarden() {
     onComplete() {
       tip.classList.remove('is-dim');
       tip.textContent = `${TARGET} flores, una por cada mes que te espera`;
-      whisper(whisperEl, '¡Jardín completo! Y ahora viene lo mejor: la tarta.', 9000);
+      whisper(whisperEl, '¡Nivel superado! Y ahora viene lo mejor: la tarta.', 9000);
+      achievement('Jardinera legendaria 🌸');
       next.classList.remove('is-hidden');
       unlock(2);
     }
@@ -174,6 +186,7 @@ function setupCake() {
       $('.cake-tools').classList.add('is-hidden');
       sub.textContent = '¡Todas apagadas de un soplo! (O casi, no se lo diremos a nadie.)';
       sound.birthday();
+      achievement('Soplido de dragón 🐉');
       unlock(3);
     }
   });
@@ -213,11 +226,12 @@ function setupGame() {
     onScore(score, combo) {
       scoreEl.textContent = score;
       bar.style.width = `${(score / GOAL) * 100}%`;
-      if (combo === 6) whisper(whisperEl, '¡Qué puntería!', 2600);
-      if (combo === 12) whisper(whisperEl, 'Imparable.', 2600);
+      if (combo === 6) whisper(whisperEl, '¡Combo x6! (ﾉ◕ヮ◕)ﾉ*:・ﾟ✧', 2600);
+      if (combo === 12) whisper(whisperEl, '¡Combo x12! Imparable.', 2600);
     },
     onWin() {
       whisper(whisperEl, '¡Lo lograste! Ya hay pétalos para un ramo entero.', 9000);
+      achievement('Atrapa-pétalos rango S ⭐');
       next.classList.remove('is-hidden');
       unlock(4);
     }
@@ -378,6 +392,20 @@ function setupChrome() {
         setTimeout(() => fx.hearts(innerWidth * (.2 + Math.random() * .6), innerHeight * .8, 14), i * 180);
       }
       fx.confetti(innerWidth / 2, innerHeight * .7, 60);
+    }
+  });
+
+  // código Konami: ↑ ↑ ↓ ↓ ← → ← → B A
+  const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+  let step = 0;
+  addEventListener('keydown', (e) => {
+    const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    step = k === KONAMI[step] ? step + 1 : (k === KONAMI[0] ? 1 : 0);
+    if (step === KONAMI.length) {
+      step = 0;
+      achievement('Código Konami: +30 vidas ❤');
+      fx.hearts(innerWidth / 2, innerHeight * .6, 30);
+      fx.confetti(innerWidth / 2, innerHeight * .5, 80);
     }
   });
 

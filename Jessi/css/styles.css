@@ -184,6 +184,9 @@ body{
   font-size:clamp(58px,17vw,140px);
   line-height:.92;
   letter-spacing:-.01em;
+  /* el degradado solo pinta dentro de la caja: margen para que la J no se corte */
+  padding:.04em .12em .2em;
+  margin:0 0 -.2em;
   background:linear-gradient(170deg,#fff 10%,var(--rose) 48%,var(--gold) 92%);
   -webkit-background-clip:text; background-clip:text;
   -webkit-text-fill-color:transparent;
@@ -572,6 +575,27 @@ body{
 }
 .deck-nav{display:flex; align-items:center; gap:16px}
 .deck-of{font-size:12px; letter-spacing:.2em; color:var(--muted)}
+
+/* ── logros estilo videojuego ───────────────── */
+.btn--start span{font-family:"Press Start 2P",var(--sans,system-ui),monospace; font-size:.72em; letter-spacing:.06em}
+.achv{
+  position:fixed; top:64px; left:50%; z-index:75;
+  display:flex; align-items:center; gap:12px;
+  max-width:calc(100vw - 32px);
+  padding:10px 16px 10px 12px;
+  border:2px solid var(--gold);
+  border-radius:12px;
+  background:rgba(18,10,31,.92);
+  box-shadow:0 0 0 2px rgba(18,10,31,.9), 0 0 24px rgba(255,215,154,.35);
+  pointer-events:none;
+  opacity:0; transform:translate(-50%,-140%);
+  transition:opacity .4s var(--ease), transform .5s var(--ease);
+}
+.achv.is-on{opacity:1; transform:translate(-50%,0)}
+.achv-ico{font-size:26px}
+.achv-txt{display:flex; flex-direction:column; gap:6px; text-align:left}
+.achv-txt small{font-family:"Press Start 2P",monospace; font-size:8px; letter-spacing:.08em; color:var(--muted); text-transform:uppercase}
+.achv-txt b{font-family:"Press Start 2P",monospace; font-size:clamp(9px,2.6vw,11px); line-height:1.5; color:var(--gold); font-weight:400}
 
 /* ── easter egg + crédito ────────────────────── */
 .egg{
